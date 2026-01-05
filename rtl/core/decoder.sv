@@ -44,9 +44,13 @@ module decoder (
   assign funct7 = instr[31:25];
 
   // Register fields (truncate to 3 bits)
-  assign rs1_idx = instr[19:15][REG_ADDRW-1:0];
-  assign rs2_idx = instr[24:20][REG_ADDRW-1:0];
-  assign rd_idx  = instr[11:7][REG_ADDRW-1:0];
+    wire [4:0] rs1_temp = instr[19:15];
+    wire [4:0] rs2_temp = instr[24:20];
+    wire [4:0] rd_temp  = instr[11:7];
+  
+    assign rs1_idx = rs1_temp[REG_ADDRW-1:0];
+    assign rs2_idx = rs2_temp[REG_ADDRW-1:0];
+    assign rd_idx  = rd_temp[REG_ADDRW-1:0];
 
   // --------------------------------------------------
   // Default values (safe NOP-like behavior)
